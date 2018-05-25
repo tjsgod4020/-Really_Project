@@ -13,4 +13,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    public void newButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), newCreateActivity.class);
+        startActivity(intent);
+    }
+
+    public void accountButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), accountListActivity.class);
+        startActivity(intent);
+    }
+
 }
+
