@@ -1,13 +1,17 @@
 package com.example.sun.tbm;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.Button;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+=======
+>>>>>>> 0277ba3aff74a29e7456442e8efd4b9c47ca13aa
 
 public class NewCreateActivity extends AppCompatActivity {
     private Button button_NCs;
@@ -32,6 +36,16 @@ public class NewCreateActivity extends AppCompatActivity {
         newTrip trip = new newTrip(tripName, tripTimeS, tripTimeE , tripArea, tripBudget, tripMoney);
 
         mDatabase.child("trip").child(tripID).setValue(trip);
+    }
+
+    public void cancelButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void okButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }
 
