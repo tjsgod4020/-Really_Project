@@ -95,28 +95,33 @@
 
     <Button
         android:id="@+id/editText_TRtime"
-        android:layout_width="146dp"
-        android:layout_height="59dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="89dp"
+        android:layout_height="47dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
         android:onClick="timeSet"
         android:text="시간"
+        app:layout_constraintBottom_toTopOf="@+id/button_TRc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_TRmoney" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_TRmoney"
+        app:layout_constraintVertical_bias="0.518" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView_TRtime"
-        android:layout_width="227dp"
-        android:layout_height="30dp"
+        android:layout_width="213dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:text="시간을 선택해주세요."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="시간을 입력해 주세요."
+        app:layout_constraintBottom_toTopOf="@+id/button_TRs"
+        app:layout_constraintEnd_toStartOf="@+id/editText_TRtime"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_TRtime" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_TRmoney" />
 
 </android.support.constraint.ConstraintLayout>

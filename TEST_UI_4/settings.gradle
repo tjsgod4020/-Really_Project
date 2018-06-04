@@ -1,1 +1,0 @@
-include ':appUI', ':app', ':base', ':instantapp'
