@@ -12,13 +12,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void newButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), NewCreateActivity.class);
-        startActivity(intent);
-    }
+        public void newButtonClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), NewCreateActivity.class);
+            startActivity(intent);
+        }
 
-    public void accountButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), AccountListActivity.class);
+        public void accountButtonClick(View v) {
+            Intent intent = new Intent(getApplicationContext(), AccountListActivity.class);
         startActivity(intent);
     }
 }
