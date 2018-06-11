@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        ExchangeRatePull ERPL = new ExchangeRatePull();
+
+        ERPL.getExRate();
+
+
     }
 
     public void newButtonClick(View v) {

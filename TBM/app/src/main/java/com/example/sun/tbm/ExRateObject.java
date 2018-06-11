@@ -12,7 +12,7 @@ package com.example.sun.tbm;
 
 public class ExRateObject {
 
-    public String cur_unit;
+
     public String cur_nm;
     public String exRate;
 
@@ -21,10 +21,9 @@ public class ExRateObject {
 
     }
 
-    public ExRateObject(String cur_nm, String cur_unit, String exRate) {
+    public ExRateObject(String cur_nm, String exRate) {
 
         this.cur_nm = cur_nm;
-        this.cur_unit = cur_unit;
         this.exRate = exRate;
     }
 

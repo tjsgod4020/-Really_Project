@@ -11,8 +11,6 @@
 package com.example.sun.tbm;
 
 
-import android.util.Log;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -58,14 +56,14 @@ public class ExchangeRatePush {
             cur_unit = arr.getJSONObject(indexNm).getString("cur_unit");
             exRate = arr.getJSONObject(indexNm).getString("deal_bas_r");
 
-           ExRateObject ERO = new ExRateObject(cur_nm,cur_unit,exRate);
+           ExRateObject ERO = new ExRateObject(cur_nm,exRate);
 
-           mDatabase.child("ExRate").push().setValue(ERO);
+           mDatabase.child("ExRate").child(cur_unit).setValue(ERO);
 
             //확인용
           //  Log.d("LD1", cur_nm + cur_unit + exRate + 0 + arr.length());
 
-            Log.d("LD2", arr.getString(indexNm) + "----"+indexNm+"----");
+          //  Log.d("LD2", arr.getString(indexNm) + "----"+indexNm+"----");
         }
 
     }
