@@ -102,33 +102,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_NCarea" />
 
-    <EditText
+    ﻿
+
+    <Spinner
         android:id="@+id/editText_NCmoney"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
+        android:layout_marginTop="48dp"
+        android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_NCbudget" />
 
-    <EditText
-        android:id="@+id/editText_NCmoney2"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_NCbudget" />
 
     <Button
         android:id="@+id/button_NCs"
@@ -163,33 +150,35 @@
 
     <TextView
         android:id="@+id/editText_NCtime"
-        android:layout_width="139dp"
-        android:layout_height="27dp"
+        android:layout_width="180dp"
+        android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toStartOf="@+id/button_NCtime"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_NCmoney2" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_NCmoney" />
 
     <TextView
         android:id="@+id/textView_NCtime2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:text="끝 날짜"
-        app:layout_constraintTop_toBottomOf="@+id/textView_NCtime"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_NCtime" />
 
     <TextView
         android:id="@+id/editText_NCtime2"
-        android:layout_width="143dp"
-        android:layout_height="26dp"
+        android:layout_width="180dp"
+        android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toStartOf="@+id/button_NCtime2"
-        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_NCtime" />
 
@@ -197,19 +186,19 @@
         android:id="@+id/button_NCtime"
         android:layout_width="158dp"
         android:layout_height="42dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="32dp"
         android:onClick="dateSet"
         android:text="시간선택"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_NCmoney2" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_NCmoney" />
 
     <Button
         android:id="@+id/button_NCtime2"
         android:layout_width="159dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
         android:onClick="dateSet2"
         android:text="시간선택"
         app:layout_constraintEnd_toEndOf="parent"

@@ -5,19 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-
-
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.os.Bundle;
-import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
+
+
 
 
 public class NewCreateActivity extends AppCompatActivity {
@@ -25,7 +23,9 @@ public class NewCreateActivity extends AppCompatActivity {
     int mYear2, mMonth2, mDay2;
     TextView mTxtDate;
     TextView mTxtDate2;
-
+    TextView selectedText;
+    Spinner spinner;
+    String[] item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,19 @@ public class NewCreateActivity extends AppCompatActivity {
         mDay2 = cal.get(Calendar.DAY_OF_MONTH);
 
         UpdateNow();//화면에 업데이트
+
+        //스피너
+        spinner = (Spinner)findViewById(R.id.editText_NCmoney);
+
+        item = new String[]{"선택하세요","원", "달러", "유로", "a", "b", "c", "d", "e", "f"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
+
+        //dropdown 되었을 때 보여지는 View에서 사용될 layout을 별도로 설정한 것.
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+
     }
     public void dateSet(View v) {
         switch (v.getId()) {
@@ -101,8 +114,6 @@ public class NewCreateActivity extends AppCompatActivity {
             mTxtDate2.setText(String.format("%d/%d/%d", mYear2,
                     mMonth2 + 1, mDay2));
         }
-
-
 
 
     public void cancelButtonClick(View v) {

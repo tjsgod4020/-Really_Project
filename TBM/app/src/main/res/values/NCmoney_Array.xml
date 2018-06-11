@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="date_year">
+        <item>원</item>
+        <item>달러</item>
+        <item>예</item>
+        <item>예2</item>
+        <item>예3</item>
+        <item>예4</item>
+        <item>예5</item>
+    </string-array>
+</resources>
