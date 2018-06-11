@@ -1,10 +1,11 @@
 /**
  * @file ExchangeRatePush.java
- * @brief Push data(Exchange Raete) to firebase
+ * @brief Push data(Exchange Rate) to FireBase
  * @author 이병현
- * @date 2018.06.04
- * @version ERP v0.1
- * @state why for loop stop at count 1 why???
+ * @date 2018.06.11
+ * @version ERP v0.3
+ * @state push data to FireBase successfully ( The problem was the data type of "Long" and "Double" can`t push over 2 times. )
+
  */
 
 package com.example.sun.tbm;
@@ -24,13 +25,10 @@ import java.util.concurrent.ExecutionException;
 
 public class ExchangeRatePush {
 
-    private static String logExRate;
-    private String cur_unit;
-    private String cur_nm;
-    private double ExRate;
+    public static String logExRate;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference mDatabase = database.getInstance().getReference();
+    private DatabaseReference mDatabase = database.getReference();
 
     //환율 데이터 불러오기
 
@@ -45,27 +43,30 @@ public class ExchangeRatePush {
 
     }
 
-
     public void setExRateObject() throws JSONException {
+
 
         JSONArray arr = new JSONArray(logExRate);
 
+        for(int indexNm = 0; indexNm < arr.length(); indexNm++) {
 
+            String cur_unit;
+            String cur_nm;
+            String exRate;
 
-        for(int count = 0; count < 22; count++) {
+            cur_nm = arr.getJSONObject(indexNm).getString("cur_nm");
+            cur_unit = arr.getJSONObject(indexNm).getString("cur_unit");
+            exRate = arr.getJSONObject(indexNm).getString("deal_bas_r");
 
-            cur_nm = arr.getJSONObject(count).getString("cur_nm");
-            cur_unit = arr.getJSONObject(count).getString("cur_unit");
-            ExRate = arr.getJSONObject(count).getDouble("deal_bas_r");
-            mDatabase.child("Exchange").child(cur_nm).child("currency").setValue(cur_unit);
-            mDatabase.child("Exchange").child(cur_nm).child("ExRate").setValue(ExRate);
+           ExRateObject ERO = new ExRateObject(cur_nm,cur_unit,exRate);
+
+           mDatabase.child("ExRate").push().setValue(ERO);
 
             //확인용
-            Log.i("정보", cur_nm + cur_unit + ExRate + count + arr.length());
+          //  Log.d("LD1", cur_nm + cur_unit + exRate + 0 + arr.length());
 
+            Log.d("LD2", arr.getString(indexNm) + "----"+indexNm+"----");
         }
-
-
 
     }
 }
