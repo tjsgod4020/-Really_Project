@@ -1,6 +1,7 @@
 package com.example.sun.tbm;
 
 public class newTrip{
+    public String key;
     public String tripName;
     public String tripTimeS;
     public String tripTimeE;

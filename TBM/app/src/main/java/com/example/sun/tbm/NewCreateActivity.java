@@ -24,6 +24,7 @@ public class NewCreateActivity extends AppCompatActivity {
     private EditText editText_NCname, editText_NCtime, editText_NCarea, editText_NCbudget, editText_NCmoney;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase = database.getInstance().getReference();
+    private DatabaseReference tripRef = database.getReference("User");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +42,21 @@ public class NewCreateActivity extends AppCompatActivity {
             public void onClick(View v){
                 String tripName, tripTimeS, tripTimeE, tripArea, tripMoney;
                 int tripBudget;
+                String key = tripRef.push().getKey();
                 tripName = editText_NCname.getText().toString();
                 tripTimeS = editText_NCtime.getText().toString();
                 tripTimeE = editText_NCtime.getText().toString();
                 tripArea = editText_NCarea.getText().toString();
                 tripBudget = Integer.parseInt(editText_NCbudget.getText().toString());
                 tripMoney = editText_NCmoney.getText().toString();
-                writeNewTrip(tripName, tripTimeS, tripTimeE, tripArea, tripBudget, tripMoney);
+                writeNewTrip(key, tripName, tripTimeS, tripTimeE, tripArea, tripBudget, tripMoney);
             }
         });
     }
 
-    private void writeNewTrip(String tripName, String tripTimeS, String tripTimeE, String tripArea, int tripBudget, String tripMoney){
+    private void writeNewTrip(String key, String tripName, String tripTimeS, String tripTimeE, String tripArea, int tripBudget, String tripMoney){
         newTrip trip = new newTrip(tripName, tripTimeS, tripTimeE , tripArea, tripBudget, tripMoney);
-        mDatabase.child("유저").child(tripName).setValue(trip);
+        mDatabase.child("User").child(key).setValue(trip);
     }
 
     public void cancelButtonClick(View v) {
