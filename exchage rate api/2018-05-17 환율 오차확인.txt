@@ -1,0 +1,28 @@
+[{"result":1,"cur_unit":"AED","ttb":"290.73",
+"tts":"296.6","deal_bas_r":"293.67","bkpr":"293","yy_efee_r":"0",
+"ten_dd_efee_r":"0","kftc_bkpr":"293",
+"kftc_deal_bas_r":"293.67","cur_nm":"아랍에미리트 디르함"}
+
+cur_unit = 국가통화;
+cur_nm = 나라이름
+
+deal_bas_r = 환율 기준 소수점 2자리 쓰자
+
+기준 293.67 네이버 294.30 구글 294.31  약 0.6 오차
+
+{"result":1,"cur_unit":"CAD","ttb":"835.57",
+"tts":"852.46","deal_bas_r":"844.02","bkpr":"844","yy_efee_r":"0",
+"ten_dd_efee_r":"0","kftc_bkpr":"844",
+"kftc_deal_bas_r":"844.02","cur_nm":"캐나다 달러"},
+
+기준 844.02 네이버 846.71 구글 846.57 약 2.6 오차
+
+{"result":1,"cur_unit":"USD","ttb":"1,067.91",
+"tts":"1,089.48","deal_bas_r":"1,078.7","bkpr":"1,078","yy_efee_r":"0",
+"ten_dd_efee_r":"0",
+"kftc_bkpr":"1,078","kftc_deal_bas_r":"1,078.7","cur_nm":"미국 달러"}]
+
+기준 1078.7 네이버 1081.00 구글 1081.08 약 2.0 오차
+
+
++- 1.8 문제 없을 듯?

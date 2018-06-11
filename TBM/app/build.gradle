@@ -21,6 +21,7 @@ android {
 dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'

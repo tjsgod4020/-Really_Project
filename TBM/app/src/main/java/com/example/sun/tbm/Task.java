@@ -41,7 +41,6 @@ public class Task extends AsyncTask<String, String, String> {
                     buffer.append(str);
                 }
                 receiveMsg = buffer.toString();
-                Log.i("receiveMsg : ", receiveMsg);
 
                 reader.close();
             } else {
