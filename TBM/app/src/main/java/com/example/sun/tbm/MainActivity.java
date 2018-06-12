@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void accountButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), AccountListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), TripListActivity.class);
 
         startActivity(intent);
     }
