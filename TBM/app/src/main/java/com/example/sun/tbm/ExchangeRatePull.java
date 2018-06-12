@@ -15,8 +15,6 @@ public class ExchangeRatePull {
     private DatabaseReference mDatabase = database.getReference();
 
 
-
-
     public void getExRate() {
 
 
@@ -25,7 +23,7 @@ public class ExchangeRatePull {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Log.d("DC0", "value : "+ snapshot.getValue());
-                    mDatabase.child("Test2").setValue(snapshot.getValue());
+                   mDatabase.child("Test02").setValue(snapshot.getValue());
 
                 }
             }
