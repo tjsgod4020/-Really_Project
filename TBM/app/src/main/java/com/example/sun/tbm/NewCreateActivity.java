@@ -5,14 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import android.app.DatePickerDialog;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import java.util.Date;
 
 
 
@@ -21,11 +22,20 @@ import android.widget.TextView;
 public class NewCreateActivity extends AppCompatActivity {
     int mYear, mMonth, mDay;
     int mYear2, mMonth2, mDay2;
+
     TextView mTxtDate;
     TextView mTxtDate2;
-    TextView selectedText;
+
     Spinner spinner;
     String[] item;
+
+
+    SimpleDateFormat c = new SimpleDateFormat("yyyy-MM-dd");
+    String t = c.format(new Date(System.currentTimeMillis()));
+
+    SimpleDateFormat c2 = new SimpleDateFormat("yyyy-MM-dd");
+    String t2 = c2.format(new Date(System.currentTimeMillis()));
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +46,18 @@ public class NewCreateActivity extends AppCompatActivity {
         mTxtDate2 = (TextView)findViewById(R.id.editText_NCtime2);
 
         //calendar 인스턴스 선언
+        //오늘 날짜 알려줌
         Calendar cal = new GregorianCalendar();
 
         mYear = cal.get(Calendar.YEAR);
         mMonth = cal.get(Calendar.MONTH);
         mDay = cal.get(Calendar.DAY_OF_MONTH);
+
         mYear2 = cal.get(Calendar.YEAR);
         mMonth2 = cal.get(Calendar.MONTH);
         mDay2 = cal.get(Calendar.DAY_OF_MONTH);
 
-        UpdateNow();//화면에 업데이트
+        UpdateNow(); // 뷰에 보이도록
 
         //스피너
         spinner = (Spinner)findViewById(R.id.editText_NCmoney);
@@ -54,7 +66,7 @@ public class NewCreateActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
 
-        //dropdown 되었을 때 보여지는 View에서 사용될 layout을 별도로 설정한 것.
+        //dropdown 되었을 때 View
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
@@ -65,8 +77,10 @@ public class NewCreateActivity extends AppCompatActivity {
             //시작 날짜 버튼
             case R.id.button_NCtime:
                 new DatePickerDialog(NewCreateActivity.this, mDateSetListener, mYear,
-                        mMonth, mDay).show();
+                    mMonth, mDay).show();
                 break;
+                default:
+                    break;
         }
     }
         public void dateSet2(View v) {
@@ -74,8 +88,10 @@ public class NewCreateActivity extends AppCompatActivity {
             //끝 날짜 버튼
             case R.id.button_NCtime2:
                 new DatePickerDialog(NewCreateActivity.this, mDateSetListener2, mYear2,
-                        mMonth2, mDay2).show();
+                    mMonth2, mDay2).show();
                 break;
+                default:
+                    break;
         }
     }
 
@@ -109,10 +125,8 @@ public class NewCreateActivity extends AppCompatActivity {
 
         //뷰에 값을 업데이트 하는 메소드
         void UpdateNow () {
-            mTxtDate.setText(String.format("%d/%d/%d", mYear,
-                    mMonth + 1, mDay));
-            mTxtDate2.setText(String.format("%d/%d/%d", mYear2,
-                    mMonth2 + 1, mDay2));
+            mTxtDate.setText(t);
+            mTxtDate2.setText(t2);
         }
 
 
