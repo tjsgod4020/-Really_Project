@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,74 +18,69 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import static java.sql.Types.NULL;
+public class DateListActivity extends AppCompatActivity {
 
-public class TripListActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase = database.getReference("User");
 
-    private ListView itemList_T;
-    private Button button_Ts;
-
+    private ListView itemList_D;
+    private Button button_Ds;
 
     private int counter;
     private List<newTrip> trip = new ArrayList<>();
-    private List<String> title = new ArrayList<>();
+    private List<String> day = new ArrayList<>();
     private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trip_list);
+        setContentView(R.layout.activity_date_list);
 
-        itemList_T = (ListView)findViewById(R.id.itemList_T);
-        button_Ts = (Button)findViewById(R.id.button_Ts);
+        itemList_D = (ListView)findViewById(R.id.itemList_D);
+        button_Ds = (Button)findViewById(R.id.button_Ds);
 
-        title.add("확인을 눌러주세요.");
+        day.add("확인을 눌러주세요.");
 
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1 ,title);
-        itemList_T.setAdapter(adapter);
-        itemList_T.setOnItemClickListener(onItemClickListener);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1 ,day);
+        itemList_D.setAdapter(adapter);
+        itemList_D.setOnItemClickListener(onItemClickListener);
 
-        button_Ts.setOnClickListener(new View.OnClickListener() {
+        button_Ds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabase.addListenerForSingleValueEvent(tripListener);
+                mDatabase.addListenerForSingleValueEvent(tripDayListener);
             }
         });
     }
 
-    public void tripCancelButton(View v) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    public void DateCancelButton(View v) {
+        Intent intent = new Intent(getApplicationContext(), TripListActivity.class);
         startActivity(intent);
     }
-    //List View Item 이벤트
+
     AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //리스트 뷰 갱신
-            if(title.get(0).equals("확인을 눌러주세요.")){
+            if(day.get(0).equals("확인을 눌러주세요.")){
                 Toast.makeText(getApplicationContext(), "확인을 눌러주세요", Toast.LENGTH_SHORT).show();
             }else {
-                String tripName = trip.get(position).getTripName();
                 tripData tripdata = (tripData) getApplication();
-                tripdata.setTripTitle(tripName);
-                tripdata.setTripNumber(position);
-                Intent intent = new Intent(getApplicationContext(), DateListActivity.class);
+                tripdata.setTripDay(day.get(position));
+                Intent intent = new Intent(getApplicationContext(), AccountListActivity.class);
                 startActivity(intent);
             }
         }
     };
 
-    ValueEventListener tripListener = new ValueEventListener() {
+    ValueEventListener tripDayListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             //변수들 초기화
+            tripData tripdata = (tripData) getApplication();
             counter = 0;
-            title.clear();
+            day.clear();
             trip.clear();
             //DB에서 데이터 읽어온 후 trip에 데이터 적재 및 갯수 파악.
             for( DataSnapshot snapshot : dataSnapshot.getChildren() ) {
@@ -94,12 +88,12 @@ public class TripListActivity extends AppCompatActivity {
                 trip.add(temp);
                 counter++;
             }
-            //리스트 뷰 아이템 변경
+            //날짜 구조변경 필요.
             for(int i = 0; i < counter; i++){
-                title.add(trip.get(i).getTripName());
+                day.add(trip.get(tripdata.getTripNumber()).getTripTimeS() + String.valueOf(i + 1));
             }
             //확인용 로그
-            Log.d("MainActivity", title.get(0));
+            Log.d("MainActivity", day.get(0));
             Log.d("MainActivity2", String.valueOf(counter));
             //리스트뷰 최신화
             adapter.notifyDataSetChanged();
