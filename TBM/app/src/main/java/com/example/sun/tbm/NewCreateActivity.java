@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,29 +43,45 @@ public class NewCreateActivity extends AppCompatActivity {
             public void onClick(View v){
                 String tripName, tripTimeS, tripTimeE, tripArea, tripMoney;
                 int tripBudget;
-                String key = tripRef.push().getKey();
                 tripName = editText_NCname.getText().toString();
                 tripTimeS = editText_NCtime.getText().toString();
                 tripTimeE = editText_NCtime.getText().toString();
                 tripArea = editText_NCarea.getText().toString();
                 tripBudget = Integer.parseInt(editText_NCbudget.getText().toString());
                 tripMoney = editText_NCmoney.getText().toString();
-                writeNewTrip(key, tripName, tripTimeS, tripTimeE, tripArea, tripBudget, tripMoney);
+                writeNewTrip(tripName, tripTimeS, tripTimeE, tripArea, tripBudget, tripMoney);
+                Toast.makeText(getApplicationContext(), "생성되었습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-    private void writeNewTrip(String key, String tripName, String tripTimeS, String tripTimeE, String tripArea, int tripBudget, String tripMoney){
-        newTrip trip = new newTrip(tripName, tripTimeS, tripTimeE , tripArea, tripBudget, tripMoney);
-        mDatabase.child("User").child(key).setValue(trip);
+    private void writeNewTrip(String tripName, String tripTimeS, String tripTimeE, String tripArea, int tripBudget, String tripMoney){
+        int day = 3;
+        newTrip trip = new newTrip();
+        newTripDate tripDay = new newTripDate();
+
+        trip.setTripName(tripName);
+        trip.setTripTimeS(tripTimeS);
+        trip.setTripTimeE(tripTimeE);
+        trip.setTripArea(tripArea);
+        trip.setTripBudget(tripBudget);
+        trip.setTripMoney(tripMoney);
+        mDatabase.child("User").child(tripName).setValue(trip);
+        //준비날
+        //mDatabase.child("User").child(tripName).child().setValue(tripDay);
+
+        for(int i = 0; i < day; i++){
+            tripDay.setTripDay("2018060" + String.valueOf(i + 1));
+            tripDay.setTripName(tripName);
+            mDatabase.child("User").child(tripName).child("2018060" + String.valueOf(i + 1)).setValue(tripDay);
+        }
+        //끝난후
+        //mDatabase.child("User").child(tripName).child().setValue(tripDay);
     }
 
     public void cancelButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void okButtonClick(View v) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }

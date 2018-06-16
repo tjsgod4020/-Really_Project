@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,28 +31,39 @@ public class InnActivity extends AppCompatActivity {
 
         button_INNs.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View v){
-                String tripName, INNname, INNadress, INNnumber;
+                tripData tripdata = (tripData) getApplication();
+                String tripName, tripDay, INNname, INNadress, INNnumber;
                 int INNmoney;
 
+                tripName = tripdata.getTripTitle();
+                tripDay = tripdata.getTripDay();
                 INNname = editText_INNname.getText().toString();
                 INNadress = editText_INNadress.getText().toString();
                 INNnumber = editText_INNnumber.getText().toString();
                 INNmoney = Integer.parseInt(editText_INNmoney.getText().toString());
 
-                writeNewInn("test","test",INNname, INNadress, INNnumber, INNmoney);
+                writeNewInn(tripName, tripDay, INNname, INNadress, INNnumber, INNmoney);
+
+                Toast.makeText(getApplicationContext(), "숙소가 생성되었습니다.", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), AccountListActivity.class);
+                startActivity(intent);
             }
         });
     }
 
-    private void writeNewInn(String tripName, String tripDate, String innName, String innAdress, String innNumber, int innMoney){
-        newInn inn = new newInn(tripName, tripDate, innName , innAdress, innNumber, innMoney);
+    private void writeNewInn(String tripName, String tripDay, String innName, String innAdress, String innNumber, int innMoney){
+        newInn inn = new newInn();
 
-        mDatabase.child("유저").child(tripName).child(tripDate).setValue(inn);
-    }
+        inn.setKind("INN");
+        inn.setTripName(tripName);
+        inn.setTripDay(tripDay);
+        inn.setInnName(innName);
+        inn.setInnAdress(innAdress);
+        inn.setInnNumber(innNumber);
+        inn.setInnMoney(innMoney);
 
-    public void innOkButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), ListSelectActivity.class);
-        startActivity(intent);
+        mDatabase.child("User").child(tripName).child("20180601").child("Inn").child(innName).setValue(inn);
     }
 
     public void innCancelButtonClick(View v) {
