@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,7 +30,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import java.util.Date;
 
+
 public class NewCreateActivity extends AppCompatActivity {
+
     private Button button_NCs;
     private EditText editText_NCname, editText_NCtime, editText_NCarea, editText_NCbudget, editText_NCmoney;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -87,21 +91,35 @@ public class NewCreateActivity extends AppCompatActivity {
         mMonth2 = cal.get(Calendar.MONTH);
         mDay2 = cal.get(Calendar.DAY_OF_MONTH);
 
-        UpdateNow(); // 뷰에 업데
+        UpdateNow(); // 뷰에  업데
 
         spinner = (Spinner)findViewById(R.id.editText_NCmoney);
-        item = new String[]{"선택하세요","원", "달러", "유로", "a", "b", "c", "d", "e", "f"}; //리스트
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
-
-
+        item = new String[]{"원", "달러", "유로", "위안", "엔", "파운드", "루피", "페소", "루블"}; //리스트
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString()+"을 선택하셨습니다", Toast.LENGTH_SHORT).show();
+                        String spin = (String)adapter.getItem(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+        );
     }
 
     private void writeNewTrip(String tripName, String tripTimeS, String tripTimeE, String tripArea, int tripBudget, String tripMoney){
         int day = 3;
         newTrip trip = new newTrip();
         newTripDate tripDay = new newTripDate();
+
 
         trip.setTripName(tripName);
         trip.setTripTimeS(tripTimeS);
@@ -120,12 +138,27 @@ public class NewCreateActivity extends AppCompatActivity {
         }
         //끝난후
         //mDatabase.child("User").child(tripName).child().setValue(tripDay);
-    }
 
-    public void cancelButtonClick(View v) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-    }
+
+        trip.setTripName(tripName);
+        trip.setTripTimeS(tripTimeS);
+        trip.setTripTimeE(tripTimeE);
+        trip.setTripArea(tripArea);
+        trip.setTripBudget(tripBudget);
+        trip.setTripMoney(tripMoney);
+        mDatabase.child("User").child(tripName).setValue(trip);
+        //준비날
+        //mDatabase.child("User").child(tripName).child().setValue(tripDay);
+
+        for(int i = 0; i < day; i++){
+            tripDay.setTripDay("2018060" + String.valueOf(i + 1));
+            tripDay.setTripName(tripName);
+            mDatabase.child("User").child(tripName).child("2018060" + String.valueOf(i + 1)).setValue(tripDay);
+        }
+        }
+        //끝난후
+        //mDatabase.child("User").child(tripName).child().setValue(tripDay);
+
 
     public void dateSet(View v) {
         switch (v.getId()) {
@@ -157,11 +190,10 @@ public class NewCreateActivity extends AppCompatActivity {
                     mYear = year;
                     mMonth = monthOfYear;
                     mDay = dayOfMonth;
+                    t = (year + "-" + monthOfYear + "-" + dayOfMonth);
 
-                    //뷰에 값을 업데이트
                     UpdateNow();
                 }
-
             };
 
     DatePickerDialog.OnDateSetListener mDateSetListener2 =
@@ -171,16 +203,24 @@ public class NewCreateActivity extends AppCompatActivity {
                     mYear2 = year;
                     mMonth2 = monthOfYear;
                     mDay2 = dayOfMonth;
+                    t = (year + "-" + monthOfYear + "-" + dayOfMonth);
 
-                    //뷰에 값을 업데이트
                     UpdateNow();
                 }
             };
 
     //뷰에 값을 업데이트 하는 메소드
-    void UpdateNow () {
+    void UpdateNow() {
         mTxtDate.setText(t);
-        mTxtDate2.setText(t2);
+        mTxtDate.setText(t2);
+        }
+
+
+
+    public void cancelButtonClick(View v) {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+
     }
 }
 
