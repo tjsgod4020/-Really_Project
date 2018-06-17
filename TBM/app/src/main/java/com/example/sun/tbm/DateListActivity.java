@@ -1,6 +1,7 @@
 package com.example.sun.tbm;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class DateListActivity extends AppCompatActivity {
 
     private int counter;
     private List<newTrip> trip = new ArrayList<>();
+    private List<newTripDate> counting = new ArrayList<>();
     private List<String> day = new ArrayList<>();
     private ArrayAdapter adapter;
 
@@ -50,6 +52,7 @@ public class DateListActivity extends AppCompatActivity {
         button_Ds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tripData tripdata = (tripData) getApplication();
                 mDatabase.addListenerForSingleValueEvent(tripDayListener);
             }
         });
@@ -74,27 +77,163 @@ public class DateListActivity extends AppCompatActivity {
         }
     };
 
+    /*
+    ValueEventListener dayCounting = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for( DataSnapshot snapshot : dataSnapshot.getChildren() ) {
+                newTripDate temp = snapshot.getValue(newTripDate.class);
+                counting.add(temp);
+                counter++;
+            }
+
+            mDatabase.addListenerForSingleValueEvent(tripDayListener);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
+    */
+
     ValueEventListener tripDayListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             //변수들 초기화
             tripData tripdata = (tripData) getApplication();
+            String tempDay;
+            String[] spliteDay;
             counter = 0;
             day.clear();
             trip.clear();
-            //DB에서 데이터 읽어온 후 trip에 데이터 적재 및 갯수 파악.
+
+            //DB에서 데이터 읽어온 후 trip에 데이터
             for( DataSnapshot snapshot : dataSnapshot.getChildren() ) {
                 newTrip temp = snapshot.getValue(newTrip.class);
                 trip.add(temp);
                 counter++;
             }
             //날짜 구조변경 필요.
+            tempDay = trip.get(tripdata.getTripNumber()).getTripTimeS();
+            spliteDay = tempDay.split("-");
+            int dyearT, dMonthT, dDayT;
+
+            dyearT = Integer.parseInt(spliteDay[0]);
+            dMonthT = Integer.parseInt(spliteDay[1]);
+            dDayT = Integer.parseInt(spliteDay[2]) - 1;
+
             for(int i = 0; i < counter; i++){
-                day.add(trip.get(tripdata.getTripNumber()).getTripTimeS() + String.valueOf(i + 1));
+                if(dMonthT == 1 || dMonthT == 3 || dMonthT == 5 || dMonthT == 7 || dMonthT == 8 || dMonthT == 10 || dMonthT == 12){
+                    if(dMonthT == 31){
+                        dMonthT = dMonthT + 1;
+                        dDayT = 1;
+
+                        if(dMonthT < 10){
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }else{
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }
+                    }else{
+                        dDayT = dDayT + 1;
+
+                        if(dMonthT < 10){
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }else{
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }
+
+                    }
+                }else if(dMonthT == 2){
+                    if(dMonthT == 28){
+                        dMonthT = dMonthT + 1;
+                        dDayT = 1;
+
+                        if(dMonthT < 10){
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }else{
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }
+                    }else{
+                        dDayT = dDayT + 1;
+
+                        if(dMonthT < 10){
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }else{
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }
+
+                    }
+                }else{
+                    if(dMonthT == 30){
+                        dMonthT = dMonthT + 1;
+                        dDayT = 1;
+
+                        if(dMonthT < 10){
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }else{
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }
+                    }else{
+                        dDayT = dDayT + 1;
+
+                        if(dMonthT < 10){
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }else{
+                            if(dDayT < 10){
+                                tempDay = (dyearT + "-0" + dMonthT + "-0" + dDayT);
+                            }else {
+                                tempDay = (dyearT + "-0" + dMonthT + "-" + dDayT);
+                            }
+                        }
+                    }
+                }
+                day.add(tempDay);
             }
-            //확인용 로그
-            Log.d("MainActivity", day.get(0));
-            Log.d("MainActivity2", String.valueOf(counter));
             //리스트뷰 최신화
             adapter.notifyDataSetChanged();
         }

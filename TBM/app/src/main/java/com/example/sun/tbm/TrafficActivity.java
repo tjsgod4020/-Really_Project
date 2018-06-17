@@ -18,6 +18,9 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class TrafficActivity extends AppCompatActivity {
     int tHour, tMinute;
@@ -27,6 +30,9 @@ public class TrafficActivity extends AppCompatActivity {
     private EditText editText_TRkind, editText_TRmoney;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference mDatabase = database.getInstance().getReference();
+
+    SimpleDateFormat t = new SimpleDateFormat("hh시 mm분");
+    String a = t.format(new Date(System.currentTimeMillis()));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +57,10 @@ public class TrafficActivity extends AppCompatActivity {
                 tripName = tripdata.getTripTitle();
                 tripDay = tripdata.getTripDay();
                 TRname = editText_TRkind.getText().toString();
+                TRtime = tTime.getText().toString();
                 TRmoney = Integer.parseInt(editText_TRmoney.getText().toString());
 
-                writeNewTraffic(tripName, tripDay, TRname,"test", TRmoney);
+                writeNewTraffic(tripName, tripDay, TRname, TRtime, TRmoney);
 
                 Toast.makeText(getApplicationContext(), "교통이 생성되었습니다.", Toast.LENGTH_SHORT).show();
 
@@ -89,6 +96,8 @@ public class TrafficActivity extends AppCompatActivity {
                 new TimePickerDialog(TrafficActivity.this, tTimeSetListener, tHour,
                         tMinute, false).show();
                 break;
+                default:
+                break;
         }
     }
 
@@ -103,7 +112,7 @@ public class TrafficActivity extends AppCompatActivity {
             };
 
     void UpdateNow(){
-        tTime.setText(String.format("%d시:%d분 입니다.", tHour, tMinute));
+        tTime.setText(a);
     }
 }
 
