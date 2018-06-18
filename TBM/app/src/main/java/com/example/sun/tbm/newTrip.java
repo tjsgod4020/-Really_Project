@@ -1,24 +1,71 @@
 package com.example.sun.tbm;
 
 public class newTrip{
-    public String key;
-    public String tripName;
-    public String tripTimeS;
-    public String tripTimeE;
-    public String tripArea;
-    public int tripBudget;
-    public String tripMoney;
+    private String tripName;
+    private String tripTimeS;
+    private String tripTimeE;
+    private String tripArea;
+    private int tripBudget;
+    private String tripMoney;
+    private int tripDayCounter;
 
     public newTrip(){
 
     }
 
-    public newTrip(String tripName, String tripTimeS, String tripTimeE, String tripArea, int tripBudget, String tripMoney){
-        this.tripName = tripName;
-        this.tripTimeS = tripTimeS;
-        this.tripTimeE = tripTimeE;
-        this.tripArea = tripArea;
+    public void setTripBudget(int tripBudget) {
         this.tripBudget = tripBudget;
+    }
+
+    public void setTripArea(String tripArea) {
+        this.tripArea = tripArea;
+    }
+
+    public void setTripTimeE(String tripTimeE) {
+        this.tripTimeE = tripTimeE;
+    }
+
+    public void setTripTimeS(String tripTimeS) {
+        this.tripTimeS = tripTimeS;
+    }
+
+    public void setTripName(String tripName) {
+        this.tripName = tripName;
+    }
+
+    public void setTripMoney(String tripMoney) {
         this.tripMoney = tripMoney;
+    }
+
+    public void setTripDayCounter(int tripDayCounter){
+        this.tripDayCounter = tripDayCounter;
+    }
+
+    public String getTripMoney() {
+        return tripMoney;
+    }
+
+    public int getTripBudget() {
+        return tripBudget;
+    }
+
+    public String getTripTimeE() {
+        return tripTimeE;
+    }
+
+    public String getTripTimeS() {
+        return tripTimeS;
+    }
+
+    public String getTripName() {
+        return tripName;
+    }
+
+    public String getTripArea() {
+        return tripArea;
+    }
+
+    public int getTripDayCounter() {
+        return tripDayCounter;
     }
 }

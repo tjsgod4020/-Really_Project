@@ -1,23 +1,72 @@
 package com.example.sun.tbm;
 
 public class newInn{
-    public String tripName;
-    public String tripDate;//날짜형식으로 변경해야됌
-    public String innName;
-    public String innAdress;
-    public String innNumber;
-    public int innMoney;
+    private String tripName;
+    private String tripDay;
+    private String innName;
+    private String innAdress;
+    private String innNumber;
+    private int innMoney;
+    private String kind;
 
     public newInn(){
+
     }
 
-    public newInn(String tripName,String tripDate,  String innName, String innAdress, String innNumber, int innMoney){
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public void setTripName(String tripName) {
         this.tripName = tripName;
-        this.tripDate = tripDate;
-        this.innName = innName;
+    }
+
+    public void setTripDay(String tripDay) {
+        this.tripDay = tripDay;
+    }
+
+    public void setInnAdress(String innAdress) {
         this.innAdress = innAdress;
-        this.innNumber = innNumber;
+    }
+
+    public void setInnMoney(int innMoney) {
         this.innMoney = innMoney;
+    }
+
+    public void setInnName(String innName) {
+        this.innName = innName;
+    }
+
+    public void setInnNumber(String innNumber) {
+        this.innNumber = innNumber;
+    }
+
+    public String getTripName() {
+        return tripName;
+    }
+
+    public String getTripDay() {
+        return tripDay;
+    }
+
+    public int getInnMoney() {
+        return innMoney;
+    }
+
+    public String getInnAdress() {
+        return innAdress;
+    }
+
+    public String getInnName() {
+        return innName;
+    }
+
+    public String getInnNumber() {
+        return innNumber;
     }
 }
 
